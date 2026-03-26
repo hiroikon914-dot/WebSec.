@@ -20,34 +20,36 @@ export const parseInputWithAI = async (text: string): Promise<ParsedIntent> => {
   if (!apiKey) return fallbackParse(text);
 
   const client = new OpenAI({ apiKey });
-  const response = await client.responses.create({
-    model: "gpt-4.1-mini",
-    input: [
+  const response = await client.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
       { role: "system", content: schemaPrompt },
       { role: "user", content: text }
     ],
-    text: {
-      format: {
-        type: "json_schema",
+    response_format: {
+      type: "json_schema",
+      json_schema: {
         name: "intent",
+        strict: true,
         schema: {
           type: "object",
           properties: {
-            kind: { enum: ["task", "routine"] },
+            kind: { type: "string", enum: ["task", "routine"] },
             title: { type: "string" },
-            category: { enum: ["日本語教師", "家の芽", "プライベート"] },
-            status: { enum: ["todo", "waiting"] },
+            category: { type: "string", enum: ["日本語教師", "家の芽", "プライベート"] },
+            status: { type: "string", enum: ["todo", "waiting"] },
             parentTaskTitle: { type: "string" },
             estimatedMinutes: { type: "number" },
             notes: { type: "string" }
           },
-          required: ["kind", "title", "category"],
+          required: ["kind", "title", "category", "status", "parentTaskTitle", "estimatedMinutes", "notes"],
           additionalProperties: false
         }
       }
     }
   });
 
-  const payload = response.output_text;
+  const payload = response.choices[0].message.content;
+  if (!payload) return fallbackParse(text);
   return JSON.parse(payload) as ParsedIntent;
 };
