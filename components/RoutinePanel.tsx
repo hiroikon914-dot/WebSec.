@@ -1,21 +1,34 @@
 import type { Routine } from "@/types/domain";
 
+const FREQ_LABEL: Record<Routine["frequency"], string> = {
+  daily: "毎日",
+  weekly: "毎週",
+  custom: "カスタム"
+};
+
 export function RoutinePanel({ routines }: { routines: Routine[] }) {
+  const active = routines.filter((r) => r.active);
+
   return (
     <section className="panel">
-      <h2>ルーティーン管理（土台）</h2>
-      <ul>
-        {routines.map((routine) => (
-          <li key={routine.id} className="simple-row">
-            <div>
-              <strong>{routine.title}</strong> ({routine.frequency})
-            </div>
-            <small>
-              {routine.preferredTime ?? "時間未設定"} / {routine.durationMinutes ?? 0}分 / {routine.active ? "active" : "inactive"}
-            </small>
-          </li>
-        ))}
-      </ul>
+      <div className="panel-header">
+        <span className="panel-title">ルーティーン</span>
+      </div>
+      {active.length === 0 ? (
+        <p className="empty-msg">登録なし</p>
+      ) : (
+        <ul className="routine-list">
+          {active.map((r) => (
+            <li key={r.id} className="routine-row">
+              <span className="routine-name">{r.title}</span>
+              {r.preferredTime && (
+                <span className="routine-time">{r.preferredTime}</span>
+              )}
+              <span className="routine-tag">{FREQ_LABEL[r.frequency]}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

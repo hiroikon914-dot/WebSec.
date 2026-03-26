@@ -3,6 +3,7 @@ export type Category = (typeof CATEGORIES)[number];
 
 export type TaskStatus = "todo" | "waiting" | "done";
 export type RoutineFrequency = "daily" | "weekly" | "custom";
+export type ScheduleSource = "manual" | "generated" | "routine" | "calendar";
 
 export type Task = {
   id: string;
@@ -31,12 +32,14 @@ export type Routine = {
   updatedAt: string;
 };
 
-export type TimelineEvent = {
+export type ScheduleItem = {
   id: string;
   title: string;
-  category: Category;
-  start: string;
-  end: string;
+  startTime: string;
+  endTime: string;
+  source: ScheduleSource;
+  linkedTaskId?: string;
+  category?: Category;
 };
 
 export type NewsItem = {
