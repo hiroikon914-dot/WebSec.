@@ -44,11 +44,11 @@ export function DashboardClient({ todayLabel }: Props) {
 
   return (
     <main className="dashboard">
-      <header className="dashboard-header">
+      <header className="hero panel">
         <h1>AIパーソナル秘書</h1>
-        <span className="today-label">{todayLabel}</span>
+        <span className="muted">{todayLabel}</span>
       </header>
-      <div className="dashboard-grid">
+      <div className="grid-main">
         <VoiceCaptureInput onAddText={handleAddText} />
         <TaskBoard tasks={tasks} categories={CATEGORIES} onStatusChange={handleStatusChange} />
         <TimelineDayView events={events} />
