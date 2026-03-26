@@ -9,7 +9,7 @@ const formatTodayLabel = (date: Date): string => {
   const month = jst.getMonth() + 1;
   const day = jst.getDate();
   const weekday = WEEKDAYS[jst.getDay()];
-  return `${year}年${month}月${day}日 ${weekday}`;
+  return `${year}年${month}月${day}日${weekday}`;
 };
 
 export default function DashboardPage() {
