@@ -1,0 +1,121 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f7f8;
+  --panel: #ffffff;
+  --line: #d9dee6;
+  --text: #1d2732;
+  --muted: #697585;
+  --accent: #4d7099;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.grid-main { display: grid; gap: 14px; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.hero h1 { margin: 6px 0; }
+.muted { color: var(--muted); }
+
+.task-columns {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  gap: 8px;
+}
+
+.task-actions button,
+.voice-actions button,
+.voice-input button {
+  border: 1px solid var(--line);
+  background: #f8fafb;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.timeline-scale .hour-row,
+.timeline-canvas .grid-row {
+  height: 72px;
+  border-bottom: 1px solid #eef2f7;
+}
+.hour-row span { color: var(--muted); font-size: 12px; padding: 4px; display: inline-block; }
+
+.timeline-canvas { position: relative; }
+.event-block {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  background: #dfeaf8;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 13px;
+}
+
+.voice-input textarea {
+  width: 100%;
+  min-height: 90px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  padding: 8px;
+}
+
+.voice-actions { display: flex; gap: 8px; margin-top: 8px; }
+.parsed-preview {
+  margin-top: 10px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.simple-row { padding: 8px 0; border-bottom: 1px solid #eef2f7; }
+
+.news-region ul { margin: 0; padding-left: 18px; }
+
+@media (min-width: 900px) {
+  .grid-main {
+    grid-template-columns: 2fr 1fr;
+  }
+  .task-columns {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.error-text { color: #b42318; font-size: 13px; margin-top: 8px; }
